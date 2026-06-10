@@ -1116,41 +1116,91 @@ p {
 .item-tile {
   position: relative;
   overflow: hidden;
+  isolation: isolate;
+  perspective: 900px;
 
   min-height: 220px;
 
   border: 1px solid var(--line);
   border-radius: 12px;
 
-  background: linear-gradient(
-    135deg,
-    rgba(255, 210, 31, 0.06),
-    rgba(0, 0, 0, 0.78)
-  );
+  background:
+    radial-gradient(circle at 50% 16%, rgba(255, 210, 31, 0.14), transparent 36%),
+    linear-gradient(135deg, rgba(255, 210, 31, 0.08), rgba(0, 0, 0, 0.88));
   box-shadow: var(--shadow);
 }
 
-.item-tile img {
+.item-tile::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  z-index: 0;
+  border: 1px dashed rgba(255, 210, 31, 0.22);
+  border-radius: 8px;
+  background:
+    linear-gradient(90deg, rgba(255, 210, 31, 0.08) 1px, transparent 1px),
+    linear-gradient(rgba(255, 210, 31, 0.08) 1px, transparent 1px);
+  background-size: 18px 18px;
+  opacity: 0.55;
+}
+
+.item-tile img,
+.item-tile span {
   position: absolute;
   inset: 0;
+  display: block;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  transition:
+    transform 0.72s cubic-bezier(0.2, 0.75, 0.2, 1),
+    opacity 0.72s cubic-bezier(0.2, 0.75, 0.2, 1),
+    filter 0.72s cubic-bezier(0.2, 0.75, 0.2, 1);
+}
+
+.item-tile img {
+  z-index: 1;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
+  opacity: 0;
+  filter: grayscale(1) contrast(1.12) brightness(0.78);
+  transform: rotateY(180deg);
 }
 
 .item-tile span {
-  position: absolute;
-  left: 16px;
-  bottom: 12px;
   z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
 
   color: var(--yellow-soft);
   font-weight: 900;
+  text-align: center;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-shadow: 0 0 12px rgba(255, 210, 31, 0.32);
-  font-size: 12px;
+  font-size: clamp(14px, 1.6vw, 20px);
+  line-height: 1.2;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.54));
+}
+
+.item-tile:hover img,
+.item-tile:focus-visible img {
+  opacity: 1;
+  filter: grayscale(0) contrast(1.06) brightness(0.94);
+  transform: rotateY(0deg);
+}
+
+.item-tile:hover span,
+.item-tile:focus-visible span {
+  opacity: 0;
+  transform: rotateY(-180deg);
+}
+
+.item-tile:focus-visible {
+  outline: 2px solid var(--yellow);
+  outline-offset: 4px;
 }
 
 @media (max-width: 1100px) {
