@@ -569,16 +569,42 @@ p {
 .fixed-model-stage {
   position: fixed;
   top: clamp(104px, 16vh, 150px);
+  z-index: 1;
+  width: clamp(160px, 20vw, 300px);
+  height: clamp(160px, 30vh, 300px);
+  pointer-events: none;
+  isolation: isolate;
+}
+
+.fixed-model-stage--left {
+  left: clamp(18px, 5vw, 96px);
+}
+
+.fixed-model-stage--right {
   right: clamp(18px, 5vw, 96px);
-  z-index: 8;
-  width: clamp(180px, 24vw, 340px);
-  height: clamp(180px, 32vh, 340px);
-  pointer-events: auto;
+}
+
+.fixed-model-stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.24;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 210, 31, 0.18) 0px,
+    rgba(255, 210, 31, 0.18) 1px,
+    transparent 1px,
+    transparent 5px
+  );
+  mix-blend-mode: screen;
 }
 
 .scroll-model {
   width: 100%;
   height: 100%;
+  pointer-events: none;
   --poster-color: transparent;
   filter:
     drop-shadow(0 0 22px rgba(255, 210, 31, 0.32))
@@ -586,16 +612,26 @@ p {
     saturate(0.88);
 }
 
-.model-fallback {
+.model-fallback,
+.hero-card-gif {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.hero-card-gif {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
 }
 
 .card-screen::before {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 1;
+  pointer-events: none;
   background:
     radial-gradient(
       circle at 58% 12%,
@@ -613,6 +649,8 @@ p {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 2;
+  pointer-events: none;
   opacity: 0.22;
   background: repeating-linear-gradient(
     to bottom,
@@ -1388,9 +1426,16 @@ p {
 
   .fixed-model-stage {
     top: 96px;
+    width: clamp(140px, 26vw, 230px);
+    height: clamp(140px, 26vw, 230px);
+  }
+
+  .fixed-model-stage--left {
+    left: 18px;
+  }
+
+  .fixed-model-stage--right {
     right: 18px;
-    width: clamp(150px, 34vw, 250px);
-    height: clamp(150px, 34vw, 250px);
   }
 
   .hero-title {
@@ -1456,10 +1501,17 @@ p {
 
   .fixed-model-stage {
     top: auto;
-    right: 14px;
     bottom: 18px;
     width: 138px;
     height: 138px;
+  }
+
+  .fixed-model-stage--left {
+    display: none;
+  }
+
+  .fixed-model-stage--right {
+    right: 14px;
   }
 
   .bus {
