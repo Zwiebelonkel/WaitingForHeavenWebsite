@@ -18,6 +18,58 @@
     <div class="vignette" aria-hidden="true"></div>
     <canvas id="fog-canvas" aria-hidden="true"></canvas>
 
+    <div class="fixed-model-stage fixed-model-stage--left" aria-hidden="true">
+      <model-viewer
+        class="scroll-model"
+        src="models/soulcoin.glb"
+        poster="screenshots/hero.gif"
+        alt=""
+        disable-zoom
+        shadow-intensity="0.75"
+        exposure="0.85"
+        environment-image="neutral"
+        interaction-prompt="none"
+        tabindex="-1"
+        data-scroll-rotation
+        data-rotation-direction="-1"
+        data-rotation-tilt-x="8"
+        data-rotation-tilt-z="-5"
+      >
+        <img
+          class="model-fallback"
+          slot="poster"
+          src="screenshots/hero.gif"
+          alt=""
+        />
+      </model-viewer>
+    </div>
+
+    <div class="fixed-model-stage fixed-model-stage--right" aria-hidden="true">
+      <model-viewer
+        class="scroll-model"
+        src="models/soulcoin.glb"
+        poster="screenshots/hero.gif"
+        alt=""
+        disable-zoom
+        shadow-intensity="0.75"
+        exposure="0.85"
+        environment-image="neutral"
+        interaction-prompt="none"
+        tabindex="-1"
+        data-scroll-rotation
+        data-rotation-direction="1"
+        data-rotation-tilt-x="-7"
+        data-rotation-tilt-z="4"
+      >
+        <img
+          class="model-fallback"
+          slot="poster"
+          src="screenshots/hero.gif"
+          alt=""
+        />
+      </model-viewer>
+    </div>
+
     <header class="site-header" data-anim="fade-down">
       <a class="brand" href="#top" aria-label="Waiting for Heaven home">
         <span class="brand-text">Waiting for Heaven</span>
@@ -81,27 +133,11 @@
 
         <aside class="bus-card tilt-card" aria-label="Atmospheric game card">
           <div class="card-screen model-stage">
-            <model-viewer
-              id="scroll-model"
-              class="scroll-model"
-              src="models/soulcoin.glb"
-              poster="screenshots/hero.gif"
-              alt="3D model from Waiting for Heaven"
-              camera-controls
-              disable-zoom
-              shadow-intensity="0.75"
-              exposure="0.85"
-              environment-image="neutral"
-              interaction-prompt="none"
-              data-scroll-rotation
-            >
-              <img
-                class="model-fallback"
-                slot="poster"
-                src="screenshots/hero.gif"
-                alt="Bus animation fallback"
-              />
-            </model-viewer>
+            <img
+              class="hero-card-gif"
+              src="screenshots/hero.gif"
+              alt="Bus animation fallback"
+            />
           </div>
 
           <div class="card-terminal">

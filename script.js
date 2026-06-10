@@ -156,14 +156,20 @@ function initPersistentItemReveals() {
 }
 
 function initScrollModelRotation() {
-  const model = $('[data-scroll-rotation]');
-  if (!model || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const models = $$('[data-scroll-rotation]');
+  if (!models.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   const updateRotation = () => {
     const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
     const scrollProgress = window.scrollY / maxScroll;
-    const rotationY = scrollProgress * 360;
-    model.setAttribute('orientation', `0deg ${rotationY.toFixed(2)}deg 0deg`);
+
+    models.forEach(model => {
+      const direction = Number(model.dataset.rotationDirection || 1);
+      const tiltX = Number(model.dataset.rotationTiltX || -7);
+      const tiltZ = Number(model.dataset.rotationTiltZ || 4);
+      const rotationY = scrollProgress * 360 * direction;
+      model.setAttribute('orientation', `${tiltX}deg ${rotationY.toFixed(2)}deg ${tiltZ}deg`);
+    });
   };
 
   updateRotation();
