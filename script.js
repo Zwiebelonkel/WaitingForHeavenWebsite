@@ -13,12 +13,18 @@ const terminalText = `> Wake up, soul.
 function initTypewriter() {
   const el = $("#typewriter");
   if (!el) return;
+
   let i = 0;
+
   const write = () => {
     el.textContent = terminalText.slice(0, i);
     i += 1;
-    if (i <= terminalText.length) setTimeout(write, Math.random() * 22 + 8);
+
+    if (i <= terminalText.length) {
+      setTimeout(write, Math.random() * 22 + 8);
+    }
   };
+
   const observer = new IntersectionObserver(
     (entries) => {
       if (entries[0].isIntersecting) {
@@ -28,6 +34,7 @@ function initTypewriter() {
     },
     { threshold: 0.35 },
   );
+
   observer.observe(el);
 }
 
@@ -65,6 +72,7 @@ function initAnimations() {
 
   if (window.gsap && window.ScrollTrigger) {
     gsap.registerPlugin(ScrollTrigger);
+
     $$(".reveal").forEach((el) => {
       gsap.fromTo(
         el,
@@ -75,7 +83,10 @@ function initAnimations() {
           filter: "blur(0px)",
           duration: 1.05,
           ease: "power3.out",
-          scrollTrigger: { trigger: el, start: "top 82%" },
+          scrollTrigger: {
+            trigger: el,
+            start: "top 82%",
+          },
         },
       );
     });
@@ -95,7 +106,9 @@ function initAnimations() {
 
 function initCursor() {
   const cursor = $(".cursor-dot");
+
   if (!cursor || window.matchMedia("(pointer: coarse)").matches) return;
+
   window.addEventListener("mousemove", (e) => {
     cursor.style.left = `${e.clientX}px`;
     cursor.style.top = `${e.clientY}px`;
@@ -106,10 +119,13 @@ function initTiltCards() {
   $$(".tilt-card").forEach((card) => {
     card.addEventListener("mousemove", (e) => {
       const rect = card.getBoundingClientRect();
+
       const x = (e.clientX - rect.left) / rect.width - 0.5;
       const y = (e.clientY - rect.top) / rect.height - 0.5;
+
       card.style.transform = `rotateY(${x * 10}deg) rotateX(${-y * 10}deg)`;
     });
+
     card.addEventListener("mouseleave", () => {
       card.style.transform = "rotateY(0deg) rotateX(0deg)";
     });
@@ -120,10 +136,13 @@ function initMagneticButtons() {
   $$(".magnetic").forEach((btn) => {
     btn.addEventListener("mousemove", (e) => {
       const rect = btn.getBoundingClientRect();
+
       const x = e.clientX - rect.left - rect.width / 2;
       const y = e.clientY - rect.top - rect.height / 2;
+
       btn.style.transform = `translate(${x * 0.1}px, ${y * 0.14}px) scale(1.02)`;
     });
+
     btn.addEventListener("mouseleave", () => {
       btn.style.transform = "translate(0, 0) scale(1)";
     });
@@ -145,14 +164,20 @@ function initVerdicts() {
       "The bus keeps driving. No exit. No forgiveness. Only the report and the sound of the road beneath you.",
     ],
   };
+
   const panel = $("#verdict-panel");
+  if (!panel) return;
+
   $$(".verdict").forEach((button) => {
     button.addEventListener("click", () => {
       $$(".verdict").forEach((b) => b.classList.remove("active"));
       button.classList.add("active");
+
       const [title, text] = data[button.dataset.verdict];
+
       panel.querySelector("h3").textContent = title;
       panel.querySelector("p:last-child").textContent = text;
+
       if (window.anime) {
         anime({
           targets: panel,
@@ -177,45 +202,96 @@ function initPersistentItemReveals() {
 }
 
 function initScrollModelRotation() {
-  const models = $$("[data-scroll-rotation]");
+  const models = $("[data-scroll-rotation]")
+    ? $$("[data-scroll-rotation]")
+    : [];
+
   if (
     !models.length ||
     window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  )
+  ) {
     return;
+  }
 
-  const updateRotation = () => {
-    const maxScroll = Math.max(
-      1,
-      document.documentElement.scrollHeight - window.innerHeight,
-    );
-    const scrollProgress = window.scrollY / maxScroll;
+  let rotationY = 0;
+  let velocity = 0;
+  let targetVelocity = 0;
+
+  const impulseStrength = 0.035;
+  const maxVelocity = 14;
+  const smoothness = 0.12;
+  const targetFriction = 0.86;
+  const velocityFriction = 0.975;
+
+  const clamp = (value, min, max) => {
+    return Math.max(min, Math.min(max, value));
+  };
+
+  const applyRotation = () => {
+    velocity += (targetVelocity - velocity) * smoothness;
+    rotationY += velocity;
+
+    targetVelocity *= targetFriction;
+    velocity *= velocityFriction;
+
+    if (Math.abs(targetVelocity) < 0.001) targetVelocity = 0;
+    if (Math.abs(velocity) < 0.001) velocity = 0;
 
     models.forEach((model) => {
       const direction = Number(model.dataset.rotationDirection || 1);
       const tiltX = Number(model.dataset.rotationTiltX || -7);
       const tiltZ = Number(model.dataset.rotationTiltZ || 4);
-      const rotationY = scrollProgress * 1440 * direction;
+
       model.setAttribute(
         "orientation",
-        `${tiltX}deg ${rotationY.toFixed(2)}deg ${tiltZ}deg`,
+        `${tiltX}deg ${(rotationY * direction).toFixed(2)}deg ${tiltZ}deg`,
       );
     });
+
+    requestAnimationFrame(applyRotation);
   };
 
-  updateRotation();
-  window.addEventListener("scroll", updateRotation, { passive: true });
-  window.addEventListener("resize", updateRotation);
+  window.addEventListener(
+    "wheel",
+    (e) => {
+      targetVelocity += e.deltaY * impulseStrength;
+      targetVelocity = clamp(targetVelocity, -maxVelocity, maxVelocity);
+    },
+    { passive: true },
+  );
+
+  let lastScrollY = window.scrollY;
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      const currentScrollY = window.scrollY;
+      const delta = currentScrollY - lastScrollY;
+
+      targetVelocity += delta * impulseStrength;
+      targetVelocity = clamp(targetVelocity, -maxVelocity, maxVelocity);
+
+      lastScrollY = currentScrollY;
+    },
+    { passive: true },
+  );
+
+  applyRotation();
 }
 
 function initFog() {
   const canvas = $("#fog-canvas");
+  if (!canvas) return;
+
   const ctx = canvas.getContext("2d");
-  let w, h, particles;
+  let w;
+  let h;
+  let particles;
 
   const resize = () => {
     w = canvas.width = innerWidth * devicePixelRatio;
     h = canvas.height = innerHeight * devicePixelRatio;
+
     particles = Array.from(
       { length: Math.min(90, Math.floor(innerWidth / 18)) },
       () => ({
@@ -231,27 +307,61 @@ function initFog() {
 
   const draw = () => {
     ctx.clearRect(0, 0, w, h);
+
     particles.forEach((p) => {
       p.x += p.vx;
       p.y += p.vy;
+
       if (p.x < -p.r) p.x = w + p.r;
       if (p.x > w + p.r) p.x = -p.r;
       if (p.y < -p.r) p.y = h + p.r;
       if (p.y > h + p.r) p.y = -p.r;
+
       const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
+
       g.addColorStop(0, `rgba(255,255,255,${p.a})`);
       g.addColorStop(1, "rgba(255,255,255,0)");
+
       ctx.fillStyle = g;
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
       ctx.fill();
     });
+
     requestAnimationFrame(draw);
   };
 
   resize();
   draw();
-  addEventListener("resize", resize);
+
+  window.addEventListener("resize", resize);
+}
+
+function initBottomSoulcoinClock() {
+  const coin = $(".bottom-soulcoin-model");
+  if (!coin) return;
+
+  let currentRotation = 0;
+  let targetRotation = 0;
+
+  const tick = () => {
+    targetRotation += 6;
+  };
+
+  const animate = () => {
+    currentRotation += (targetRotation - currentRotation) * 0.08;
+
+    coin.setAttribute(
+      "orientation",
+      `-12deg ${currentRotation.toFixed(2)}deg 0deg`,
+    );
+
+    requestAnimationFrame(animate);
+  };
+
+  tick();
+  setInterval(tick, 1000);
+  animate();
 }
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -263,5 +373,6 @@ window.addEventListener("DOMContentLoaded", () => {
   initVerdicts();
   initPersistentItemReveals();
   initScrollModelRotation();
+  initBottomSoulcoinClock();
   initFog();
 });

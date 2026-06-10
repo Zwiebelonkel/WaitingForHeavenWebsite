@@ -606,9 +606,7 @@ p {
   height: 100%;
   pointer-events: none;
   --poster-color: transparent;
-  filter:
-    drop-shadow(0 0 22px rgba(255, 210, 31, 0.32))
-    contrast(1.08)
+  filter: drop-shadow(0 0 22px rgba(255, 210, 31, 0.32)) contrast(1.08)
     saturate(0.88);
 }
 
@@ -1174,7 +1172,11 @@ p {
   border-radius: 12px;
 
   background:
-    radial-gradient(circle at 50% 16%, rgba(255, 210, 31, 0.14), transparent 36%),
+    radial-gradient(
+      circle at 50% 16%,
+      rgba(255, 210, 31, 0.14),
+      transparent 36%
+    ),
     linear-gradient(135deg, rgba(255, 210, 31, 0.08), rgba(0, 0, 0, 0.88));
   box-shadow: var(--shadow);
 }
@@ -1550,4 +1552,22 @@ p {
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+.bottom-soulcoin-stage {
+  position: fixed;
+  left: 50%;
+  bottom: -350px;
+  width: min(620px, 92vw);
+  height: min(620px, 92vw);
+  transform: translateX(-50%);
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.55;
+  filter: drop-shadow(0 0 45px rgba(255, 210, 90, 0.22));
+}
+
+.bottom-soulcoin-model {
+  width: 100%;
+  height: 100%;
 }
