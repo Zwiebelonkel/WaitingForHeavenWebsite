@@ -114,11 +114,20 @@ function initMagneticButtons() {
 }
 
 function initVerdicts() {
-  const data = {
-    heaven: ['HEAVEN', 'Du wurdest freigelassen. Vielleicht warst du geduldig. Vielleicht gnÃ¤dig. Vielleicht nur etwas weniger verloren als der Rest.'],
-    limbo: ['LIMBO', 'Du wirst wieder abgesetzt. Die TÃ¼r Ã¶ffnet sich. Die Bank wartet. Der nÃ¤chste Bus kommt irgendwann. Vielleicht.'],
-    hell: ['HELL', 'Der Bus fÃ¤hrt weiter. Kein Ausstieg. Keine Vergebung. Nur der Report und das GerÃ¤usch der StraÃe unter dir.']
-  };
+const data = {
+  heaven: [
+    'HEAVEN',
+    'You were allowed to leave. Maybe you were patient. Maybe merciful. Maybe just a little less lost than the rest.'
+  ],
+  limbo: [
+    'LIMBO',
+    'You are dropped off again. The door opens. The bench waits. The next bus will come eventually. Maybe.'
+  ],
+  hell: [
+    'HELL',
+    'The bus keeps driving. No exit. No forgiveness. Only the report and the sound of the road beneath you.'
+  ]
+};
   const panel = $('#verdict-panel');
   $$('.verdict').forEach(button => {
     button.addEventListener('click', () => {
