@@ -173,20 +173,25 @@ function initVerdicts() {
       $$(".verdict").forEach((b) => b.classList.remove("active"));
       button.classList.add("active");
 
-      const [title, text] = data[button.dataset.verdict];
+      const verdict = button.dataset.verdict;
+      const [title, text] = data[verdict];
+
+      panel.classList.remove(
+        "verdict-heaven",
+        "verdict-limbo",
+        "verdict-hell",
+        "verdict-animate-heaven",
+        "verdict-animate-limbo",
+        "verdict-animate-hell",
+      );
+
+      void panel.offsetWidth;
+
+      panel.classList.add(`verdict-${verdict}`);
+      panel.classList.add(`verdict-animate-${verdict}`);
 
       panel.querySelector("h3").textContent = title;
       panel.querySelector("p:last-child").textContent = text;
-
-      if (window.anime) {
-        anime({
-          targets: panel,
-          translateY: [18, 0],
-          opacity: [0.55, 1],
-          duration: 520,
-          easing: "easeOutExpo",
-        });
-      }
     });
   });
 }

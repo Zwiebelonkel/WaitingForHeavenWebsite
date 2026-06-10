@@ -1571,3 +1571,181 @@ p {
   width: 100%;
   height: 100%;
 }
+
+.neon-flicker {
+  color: var(--yellow-soft);
+  text-shadow:
+    0 0 4px rgba(255, 210, 31, 0.9),
+    0 0 10px rgba(255, 210, 31, 0.75),
+    0 0 22px rgba(255, 210, 31, 0.55),
+    0 0 42px rgba(255, 210, 31, 0.35);
+
+  animation: neonFlicker 3.6s infinite;
+}
+
+@keyframes neonFlicker {
+  0%,
+  18%,
+  22%,
+  25%,
+  53%,
+  57%,
+  100% {
+    opacity: 1;
+    text-shadow:
+      0 0 4px rgba(255, 210, 31, 0.95),
+      0 0 12px rgba(255, 210, 31, 0.8),
+      0 0 28px rgba(255, 210, 31, 0.55),
+      0 0 52px rgba(255, 210, 31, 0.35);
+  }
+
+  20%,
+  24%,
+  55% {
+    opacity: 0.35;
+    text-shadow:
+      0 0 2px rgba(255, 210, 31, 0.4),
+      0 0 8px rgba(255, 210, 31, 0.2);
+  }
+
+  21%,
+  56% {
+    opacity: 0.05;
+    text-shadow: none;
+  }
+}
+
+.verdict-panel {
+  transition:
+    border-color 0.35s ease,
+    box-shadow 0.35s ease,
+    background 0.35s ease,
+    color 0.35s ease;
+}
+
+.verdict-panel h3,
+.verdict-panel .verdict-kicker {
+  transition:
+    color 0.35s ease,
+    text-shadow 0.35s ease;
+}
+
+/* HEAVEN — blau, ruhig, hell */
+.verdict-panel.verdict-heaven {
+  border-color: rgba(90, 190, 255, 0.65);
+  background:
+    radial-gradient(circle at 80% 0, rgba(90, 190, 255, 0.28), transparent 38%),
+    linear-gradient(180deg, rgba(90, 190, 255, 0.08), rgba(0, 12, 28, 0.78));
+  box-shadow:
+    0 0 65px rgba(90, 190, 255, 0.22),
+    inset 0 0 32px rgba(90, 190, 255, 0.08);
+}
+
+.verdict-panel.verdict-heaven h3,
+.verdict-panel.verdict-heaven .verdict-kicker {
+  color: #8fd8ff;
+  text-shadow:
+    0 0 10px rgba(143, 216, 255, 0.9),
+    0 0 32px rgba(90, 190, 255, 0.55);
+}
+
+/* LIMBO — dein normaler gelber Default */
+.verdict-panel.verdict-limbo {
+  border-color: var(--line);
+  background:
+    radial-gradient(circle at 80% 0, rgba(255, 210, 31, 0.16), transparent 35%),
+    linear-gradient(180deg, rgba(255, 210, 31, 0.06), rgba(0, 0, 0, 0.72));
+  box-shadow: var(--shadow);
+}
+
+.verdict-panel.verdict-limbo h3,
+.verdict-panel.verdict-limbo .verdict-kicker {
+  color: var(--yellow);
+}
+
+/* HELL — rot, aggressiv */
+.verdict-panel.verdict-hell {
+  border-color: rgba(255, 45, 45, 0.75);
+  background:
+    radial-gradient(circle at 80% 0, rgba(255, 20, 20, 0.32), transparent 38%),
+    linear-gradient(180deg, rgba(120, 0, 0, 0.24), rgba(0, 0, 0, 0.86));
+  box-shadow:
+    0 0 75px rgba(255, 0, 0, 0.25),
+    inset 0 0 40px rgba(255, 0, 0, 0.1);
+}
+
+.verdict-panel.verdict-hell h3,
+.verdict-panel.verdict-hell .verdict-kicker {
+  color: #ff4242;
+  text-shadow:
+    0 0 8px rgba(255, 66, 66, 0.95),
+    0 0 28px rgba(255, 0, 0, 0.7);
+}
+
+/* Animationen */
+.verdict-animate-heaven {
+  animation: verdictHeaven 0.9s ease-out;
+}
+
+.verdict-animate-limbo {
+  animation: verdictLimbo 0.7s ease-out;
+}
+
+.verdict-animate-hell {
+  animation: verdictHell 0.55s ease-out;
+}
+
+@keyframes verdictHeaven {
+  0% {
+    opacity: 0.3;
+    transform: translateY(26px) scale(0.96);
+    filter: blur(12px) brightness(1.8);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0) brightness(1);
+  }
+}
+
+@keyframes verdictLimbo {
+  0% {
+    opacity: 0.45;
+    transform: translateX(-10px);
+    filter: blur(6px);
+  }
+
+  50% {
+    transform: translateX(10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes verdictHell {
+  0% {
+    opacity: 0.2;
+    transform: translateY(10px) scale(1.04) rotate(-0.8deg);
+    filter: blur(10px) contrast(1.8);
+  }
+
+  25% {
+    transform: translateY(-6px) scale(1.02) rotate(0.8deg);
+  }
+
+  45% {
+    opacity: 1;
+    transform: translateY(4px) scale(1.01) rotate(-0.4deg);
+    filter: blur(2px) contrast(1.4);
+  }
+
+  100% {
+    transform: translateY(0) scale(1) rotate(0);
+    filter: blur(0) contrast(1);
+  }
+}
