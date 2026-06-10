@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Waiting for Heaven — ein psychologisches First-Person-Spiel an einer einsamen Bushaltestelle zwischen Leben, Tod und Urteil." />
+  <title>Waiting for Heaven — Official Site</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="scanlines" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <canvas id="fog-canvas" aria-hidden="true"></canvas>
+
+  <header class="site-header" data-anim="fade-down">
+    <a class="brand" href="#top" aria-label="Waiting for Heaven home">
+      <span class="brand-mark">W<span>f</span>H</span>
+      <span class="brand-text">Waiting for Heaven</span>
+    </a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#about">Spiel</a>
+      <a href="#features">Features</a>
+      <a href="#judgement">Urteil</a>
+      <a href="#media">Vibes</a>
+    </nav>
+    <a class="small-cta" href="https://store.steampowered.com/app/4765950/Waiting_for_Heaven/" target="_blank" rel="noreferrer">Wishlist</a>
+  </header>
+
+  <main id="top">
+    <section class="hero section">
+      <div class="hero-bg-orb hero-orb-one"></div>
+      <div class="hero-bg-orb hero-orb-two"></div>
+      <div class="hero-grid" aria-hidden="true"></div>
+
+      <div class="hero-content">
+        <p class="eyebrow glitch-lite" data-text="BUS STOP // MORAL RECORD // LIMBO">BUS STOP // MORAL RECORD // LIMBO</p>
+        <h1 class="hero-title">
+          You are dead.<br />
+          <span>Now wait.</span>
+        </h1>
+        <p class="hero-copy">
+          Ein psychologisches First-Person-Spiel über eine einsame Bushaltestelle zwischen Leben und Tod. Keine klassischen Missionen. Nur du, die Bank, seltsame Ereignisse — und ein Bus, der irgendwann entscheidet, wohin du gehörst.
+        </p>
+        <div class="hero-actions">
+          <a class="wishlist-button magnetic" href="https://store.steampowered.com/app/4765950/Waiting_for_Heaven/" target="_blank" rel="noreferrer">
+            <span class="button-noise"></span>
+            <strong>Wishlist on Steam</strong>
+            <em>don’t miss the bus</em>
+          </a>
+          <a class="ghost-button" href="#about">Explore the waiting room</a>
+        </div>
+      </div>
+
+      <aside class="bus-card tilt-card" aria-label="Atmospheric game card">
+        <div class="card-screen">
+          <div class="moon"></div>
+          <div class="road"></div>
+          <div class="bus-stop">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="bus">
+            <i></i><i></i><i></i>
+            <b></b>
+          </div>
+          <div class="bench"></div>
+        </div>
+        <div class="card-terminal">
+          <p>&gt; SOUL DETECTED</p>
+          <p>&gt; CURRENT STATUS: WAITING</p>
+          <p>&gt; VERDICT: UNKNOWN</p>
+        </div>
+      </aside>
+    </section>
+
+    <section id="about" class="section split-section">
+      <div class="section-label">01 / THE GAME</div>
+      <div class="split-copy reveal">
+        <h2>Eine Bushaltestelle, die mehr über dich weiß als du selbst.</h2>
+        <p>
+          In <strong>Waiting for Heaven</strong> sitzt du an einem verlassenen Ort und wartest. Kleine Interaktionen, Entscheidungen und zufällige Ereignisse werden zu einem stillen Protokoll deines Verhaltens. Am Ende kommt der Bus — und nimmt dich entweder mit nach Heaven, Hell oder zurück in Limbo.
+        </p>
+      </div>
+      <div class="terminal-window reveal">
+        <div class="terminal-top"><span></span><span></span><span></span></div>
+        <pre id="typewriter" aria-label="Terminal text"></pre>
+      </div>
+    </section>
+
+    <section id="features" class="section cards-section">
+      <div class="section-label">02 / FEATURES</div>
+      <h2 class="reveal">Was dich erwartet</h2>
+      <div class="feature-grid">
+        <article class="feature-card reveal">
+          <span>01</span>
+          <h3>Random Bench Events</h3>
+          <p>Je länger du sitzt, desto mehr beginnt die Welt um dich herum falsch zu wirken: rote Lichter, Wasser, fremde Silhouetten, falsche Geräusche.</p>
+        </article>
+        <article class="feature-card reveal">
+          <span>02</span>
+          <h3>Moral Judgement</h3>
+          <p>Deine kleinen Handlungen werden registriert. Töten, warten, helfen, zerstören, ignorieren — alles endet in einem Report.</p>
+        </article>
+        <article class="feature-card reveal">
+          <span>03</span>
+          <h3>PSX Horror Mood</h3>
+          <p>Low-poly, Grain, CRT, Scanlines, dunkle Neonlichter und diese unangenehme Stille kurz bevor etwas passiert.</p>
+        </article>
+        <article class="feature-card reveal">
+          <span>04</span>
+          <h3>Interactive Items</h3>
+          <p>Zigaretten, Münze, Energy Drink, Flashlight, Revolver, Pills, Notizen, Adrenaline — jedes Item kann die Stimmung kippen.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="judgement" class="section judgement-section">
+      <div class="section-label">03 / THE VERDICT</div>
+      <h2 class="reveal">Der Bus vergisst nichts.</h2>
+      <div class="verdict-track reveal">
+        <button class="verdict active" data-verdict="heaven">HEAVEN</button>
+        <button class="verdict" data-verdict="limbo">LIMBO</button>
+        <button class="verdict" data-verdict="hell">HELL</button>
+      </div>
+      <div class="verdict-panel reveal" id="verdict-panel">
+        <p class="verdict-kicker">CURRENT DESTINATION</p>
+        <h3>HEAVEN</h3>
+        <p>Du wurdest freigelassen. Vielleicht warst du geduldig. Vielleicht gnädig. Vielleicht nur etwas weniger verloren als der Rest.</p>
+      </div>
+    </section>
+
+    <section id="media" class="section media-section">
+      <div class="section-label">04 / ATMOSPHERE</div>
+      <h2 class="reveal">Screenshots kannst du später einfach ersetzen.</h2>
+      <div class="media-grid">
+        <div class="media-tile reveal"><span>BUS ARRIVAL</span></div>
+        <div class="media-tile reveal"><span>RED LIGHT EVENT</span></div>
+        <div class="media-tile reveal"><span>THE BENCH</span></div>
+      </div>
+    </section>
+
+    <section class="section final-cta">
+      <p class="eyebrow reveal">THE NEXT BUS IS NOT FOR EVERYONE</p>
+      <h2 class="reveal">Setz dich. Warte. Lass dich beurteilen.</h2>
+      <a class="wishlist-button large magnetic reveal" href="https://store.steampowered.com/app/4765950/Waiting_for_Heaven/" target="_blank" rel="noreferrer">
+        <span class="button-noise"></span>
+        <strong>Wishlist Waiting for Heaven</strong>
+        <em>Steam page öffnen</em>
+      </a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© ZwiebelGames — Waiting for Heaven</p>
+    <p class="footer-note">Built for the souls currently waiting.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
