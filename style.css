@@ -566,9 +566,17 @@ p {
   isolation: isolate;
 }
 
+.fixed-model-stage {
+  position: fixed;
+  top: clamp(104px, 16vh, 150px);
+  right: clamp(18px, 5vw, 96px);
+  z-index: 8;
+  width: clamp(180px, 24vw, 340px);
+  height: clamp(180px, 32vh, 340px);
+  pointer-events: auto;
+}
+
 .scroll-model {
-  position: relative;
-  z-index: 1;
   width: 100%;
   height: 100%;
   --poster-color: transparent;
@@ -1378,6 +1386,13 @@ p {
     min-height: 500px;
   }
 
+  .fixed-model-stage {
+    top: 96px;
+    right: 18px;
+    width: clamp(150px, 34vw, 250px);
+    height: clamp(150px, 34vw, 250px);
+  }
+
   .hero-title {
     font-size: clamp(58px, 18vw, 96px);
   }
@@ -1437,6 +1452,14 @@ p {
 
   .card-screen {
     height: 360px;
+  }
+
+  .fixed-model-stage {
+    top: auto;
+    right: 14px;
+    bottom: 18px;
+    width: 138px;
+    height: 138px;
   }
 
   .bus {
