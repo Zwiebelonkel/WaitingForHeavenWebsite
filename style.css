@@ -560,6 +560,30 @@ p {
   background: linear-gradient(#070602 0 45%, #151103 45% 58%, #040405 58% 100%);
 }
 
+.model-stage {
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+}
+
+.scroll-model {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  --poster-color: transparent;
+  filter:
+    drop-shadow(0 0 22px rgba(255, 210, 31, 0.32))
+    contrast(1.08)
+    saturate(0.88);
+}
+
+.model-fallback {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .card-screen::before {
   content: "";
   position: absolute;
@@ -1060,33 +1084,12 @@ p {
   inset: 0;
   opacity: 0.14;
   background: repeating-linear-gradient(
+    to bottom,
     rgba(255, 210, 31, 0.22) 0px,
     rgba(255, 210, 31, 0.22) 1px,
     transparent 1px,
     transparent 5px
   );
-  to bottom,
-
-  /* GIF inside bus card */
-  .card-screen .card-gif {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    z-index: 0;
-  }
-
-  /* ensure decorative elements sit above the gif */
-  .card-screen > *:not(.card-gif) {
-    z-index: 2;
-  }
-
-  .card-screen::before,
-  .card-screen::after {
-    z-index: 3;
-  }
 }
 
 .media-tile span {
@@ -1186,14 +1189,16 @@ p {
 }
 
 .item-tile:hover img,
-.item-tile:focus-visible img {
+.item-tile:focus-visible img,
+.item-tile.is-revealed img {
   opacity: 1;
   filter: grayscale(0) contrast(1.06) brightness(0.94);
   transform: rotateY(0deg);
 }
 
 .item-tile:hover span,
-.item-tile:focus-visible span {
+.item-tile:focus-visible span,
+.item-tile.is-revealed span {
   opacity: 0;
   transform: rotateY(-180deg);
 }
