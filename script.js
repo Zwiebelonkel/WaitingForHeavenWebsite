@@ -143,6 +143,34 @@ const data = {
   });
 }
 
+
+
+function initPersistentItemReveals() {
+  $$('.item-tile').forEach(tile => {
+    const reveal = () => tile.classList.add('is-revealed');
+
+    tile.addEventListener('mouseenter', reveal);
+    tile.addEventListener('focus', reveal);
+    tile.addEventListener('touchstart', reveal, { passive: true });
+  });
+}
+
+function initScrollModelRotation() {
+  const model = $('[data-scroll-rotation]');
+  if (!model || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const updateRotation = () => {
+    const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    const scrollProgress = window.scrollY / maxScroll;
+    const rotationY = scrollProgress * 360;
+    model.setAttribute('orientation', `0deg ${rotationY.toFixed(2)}deg 0deg`);
+  };
+
+  updateRotation();
+  window.addEventListener('scroll', updateRotation, { passive: true });
+  window.addEventListener('resize', updateRotation);
+}
+
 function initFog() {
   const canvas = $('#fog-canvas');
   const ctx = canvas.getContext('2d');
@@ -193,5 +221,7 @@ window.addEventListener('DOMContentLoaded', () => {
   initTiltCards();
   initMagneticButtons();
   initVerdicts();
+  initPersistentItemReveals();
+  initScrollModelRotation();
   initFog();
 });
