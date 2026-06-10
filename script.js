@@ -379,5 +379,44 @@ window.addEventListener("DOMContentLoaded", () => {
   initPersistentItemReveals();
   initScrollModelRotation();
   initBottomSoulcoinClock();
+  initMediaLightbox();
   initFog();
 });
+
+function initMediaLightbox() {
+  const lightbox = $("#lightbox");
+  const lightboxImage = $("#lightbox-image");
+  const closeButton = $(".lightbox-close");
+
+  if (!lightbox || !lightboxImage) return;
+
+  $$(".media-tile").forEach((tile) => {
+    tile.addEventListener("click", () => {
+      const img = tile.querySelector("img");
+      if (!img) return;
+
+      lightboxImage.src = img.src;
+      lightboxImage.alt = img.alt || "";
+
+      lightbox.classList.add("active");
+      document.body.classList.add("lightbox-open");
+    });
+  });
+
+  const closeLightbox = () => {
+    lightbox.classList.remove("active");
+    document.body.classList.remove("lightbox-open");
+  };
+
+  if (closeButton) {
+    closeButton.addEventListener("click", closeLightbox);
+  }
+
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeLightbox();
+  });
+}
