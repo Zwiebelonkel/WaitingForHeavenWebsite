@@ -15,6 +15,22 @@
     <button class="lightbox-close" type="button">&times;</button>
     <img id="lightbox-image" src="" alt="" />
   </div>
+
+  <div class="model-lightbox" id="model-lightbox">
+    <button class="model-lightbox-close" type="button">&times;</button>
+
+    <model-viewer
+      id="model-lightbox-viewer"
+      camera-controls
+      auto-rotate
+      auto-rotate-delay="0"
+      rotation-per-second="28deg"
+      shadow-intensity="1"
+      exposure="0.95"
+      environment-image="neutral"
+      interaction-prompt="none"
+    ></model-viewer>
+  </div>
   <body>
     <div class="cursor-dot" aria-hidden="true"></div>
     <div class="grain" aria-hidden="true"></div>
@@ -311,62 +327,110 @@
         <h2 class="reveal">Items found at the bus stop</h2>
 
         <div class="items-grid">
-          <div class="item-tile reveal" tabindex="0">
+          <div
+            class="item-tile reveal"
+            tabindex="0"
+            data-model="models/items/cigs.glb"
+          >
             <img src="screenshots/items/cigarettes.png" alt="Cigarettes" />
             <span>Cigarettes</span>
           </div>
 
-          <div class="item-tile reveal" tabindex="0">
+          <div
+            class="item-tile reveal"
+            tabindex="0"
+            data-model="models/items/bubblegum.glb"
+          >
             <img src="screenshots/items/gum.png" alt="Chewing Gum" />
             <span>Chewing Gum</span>
           </div>
 
-          <div class="item-tile reveal" tabindex="0">
+          <div
+            class="item-tile reveal"
+            tabindex="0"
+            data-model="models/items/pills.glb"
+          >
             <img src="screenshots/items/pills.png" alt="Pills" />
             <span>Pills</span>
           </div>
 
-          <div class="item-tile reveal" tabindex="0">
+          <div
+            class="item-tile reveal"
+            tabindex="0"
+            data-model="models/items/gun.glb"
+          >
             <img src="screenshots/items/gun.png" alt="Revolver" />
             <span>Revolver</span>
           </div>
 
-          <div class="item-tile reveal" tabindex="0">
+          <div
+            class="item-tile reveal"
+            tabindex="0"
+            data-model="models/items/gameboy.glb"
+          >
             <img src="screenshots/items/console.png" alt="Console" />
             <span>Console</span>
           </div>
 
-          <div class="item-tile reveal" tabindex="0">
+          <div
+            class="item-tile reveal"
+            tabindex="0"
+            data-model="models/items/flashlight.glb"
+          >
             <img src="screenshots/items/flashlight.png" alt="Flashlight" />
             <span>Flashlight</span>
           </div>
 
-          <div class="item-tile reveal" tabindex="0">
+          <div
+            class="item-tile reveal"
+            tabindex="0"
+            data-model="models/items/note.glb"
+          >
             <img src="screenshots/items/note.png" alt="Note" />
             <span>Note</span>
           </div>
 
-          <div class="item-tile reveal" tabindex="0">
+          <div
+            class="item-tile reveal"
+            tabindex="0"
+            data-model="models/items/adrenalin.glb"
+          >
             <img src="screenshots/items/adrenaline.png" alt="Adrenaline" />
             <span>Adrenaline</span>
           </div>
 
-          <div class="item-tile reveal" tabindex="0">
+          <div
+            class="item-tile reveal"
+            tabindex="0"
+            data-model="models/items/coin.glb"
+          >
             <img src="screenshots/items/coin.png" alt="Coin" />
             <span>Coin</span>
           </div>
 
-          <div class="item-tile reveal" tabindex="0">
+          <div
+            class="item-tile reveal"
+            tabindex="0"
+            data-model="models/items/key.glb"
+          >
             <img src="screenshots/items/key.png" alt="Key" />
             <span>Key</span>
           </div>
 
-          <div class="item-tile reveal" tabindex="0">
+          <div
+            class="item-tile reveal"
+            tabindex="0"
+            data-model="models/items/tablet.glb"
+          >
             <img src="screenshots/items/tablet.png" alt="CCTV Tablet" />
             <span>CCTV Tablet</span>
           </div>
 
-          <div class="item-tile reveal" tabindex="0">
+          <div
+            class="item-tile reveal"
+            tabindex="0"
+            data-model="models/items/cctv.glb"
+          >
             <img src="screenshots/items/cctv.png" alt="CCTV Camera" />
             <span>CCTV Camera</span>
           </div>

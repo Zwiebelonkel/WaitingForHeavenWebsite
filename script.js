@@ -380,6 +380,7 @@ window.addEventListener("DOMContentLoaded", () => {
   initScrollModelRotation();
   initBottomSoulcoinClock();
   initMediaLightbox();
+  initItemModelLightbox();
   initFog();
 });
 
@@ -406,6 +407,47 @@ function initMediaLightbox() {
   const closeLightbox = () => {
     lightbox.classList.remove("active");
     document.body.classList.remove("lightbox-open");
+  };
+
+  if (closeButton) {
+    closeButton.addEventListener("click", closeLightbox);
+  }
+
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeLightbox();
+  });
+}
+
+function initItemModelLightbox() {
+  const lightbox = $("#model-lightbox");
+  const viewer = $("#model-lightbox-viewer");
+  const closeButton = $(".model-lightbox-close");
+
+  if (!lightbox || !viewer) return;
+
+  $$(".item-tile[data-model]").forEach((tile) => {
+    tile.addEventListener("click", () => {
+      const modelSrc = tile.dataset.model;
+      if (!modelSrc) return;
+
+      viewer.src = modelSrc;
+
+      lightbox.classList.add("active");
+      document.body.classList.add("lightbox-open");
+    });
+  });
+
+  const closeLightbox = () => {
+    lightbox.classList.remove("active");
+    document.body.classList.remove("lightbox-open");
+
+    setTimeout(() => {
+      viewer.removeAttribute("src");
+    }, 250);
   };
 
   if (closeButton) {
